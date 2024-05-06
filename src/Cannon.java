@@ -16,7 +16,7 @@ public class Cannon{
     private Image shipDown0 = new ImageIcon("sprites/c_broken1.png").getImage(); // broken ships
     private Image shipDown1 = new ImageIcon("sprites/c_broken2.png").getImage();
     private int curImage = 0; // determines which broken image will be displayed
-
+    private int speed = 5; // speed of ship
     private boolean gotShot = false; // flag to determine if user has been hit
     private int counter = 0; // used to moderate when to display image
     private Clip hitMusic;
@@ -30,12 +30,35 @@ public class Cannon{
 
     // these two functions move user left or right by 5 units
     public void right(){
-        pos += 5;
+        if(pos+speed <= 740){
+        pos += speed;
         updateRect();
+    }else{
+        pos = 740;
+        updateRect();
+    }
     }
 
     public void left(){
-        pos -= 5;
+        if(pos-speed >= 12){
+        pos -= speed;
+        updateRect();
+    }else {
+        pos = 12;
+        updateRect();
+    }
+    }
+    public int getX(){
+        return pos;
+    }
+    public int getSpeed(){
+        return speed;
+    }
+    public void setSpeed(int newSpeed){
+        speed = newSpeed;
+    }
+    public void setPos(int newX){
+        pos = newX;
         updateRect();
     }
 
