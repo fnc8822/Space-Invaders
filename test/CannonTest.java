@@ -9,17 +9,17 @@ class CannonTest {
     void TestMoveRightFromRight() throws Exception {
         Cannon ship = new Cannon();
         ship.setSpeed(10);
-        ship.setPos(740);
+        ship.setPos(730);
         ship.right();
-        assertEquals(ship.getX(), 740);
+        assertEquals(ship.getX(), 730);
     }
     @Test
     void TestMoveRightFromRightWithEdge() throws Exception {
         Cannon ship = new Cannon();
         ship.setSpeed(10);
-        ship.setPos(735);
+        ship.setPos(725);
         ship.right();
-        assertEquals(ship.getX(), 740);
+        assertEquals(ship.getX(), 730);
     }
 
     @Test
@@ -66,9 +66,9 @@ class CannonTest {
     void TestMoveLeftFromRight() throws Exception {
         Cannon ship = new Cannon();
         ship.setSpeed(10);
-        ship.setPos(740);
+        ship.setPos(730);
         ship.left();
-        assertEquals(ship.getX(), 730);
+        assertEquals(ship.getX(), 720);
     }
     @Test
     void getLives() {
