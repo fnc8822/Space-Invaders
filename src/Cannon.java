@@ -20,6 +20,9 @@ public class Cannon{
     private boolean gotShot = false; // flag to determine if user has been hit
     private int counter = 0; // used to moderate when to display image
     private Clip hitMusic;
+    private long shotCooldown = 50; // cooldown for player shots
+    private long lastShotTime = 0; // stores last time user shot
+    private boolean sideCannons = true; // flag to determine if user has side cannons active
 
     public Cannon(){
     }
@@ -30,11 +33,11 @@ public class Cannon{
 
     // these two functions move user left or right by 5 units
     public void right(){
-        if(pos+speed <= 740){
+        if(pos+speed <= 730){
         pos += speed;
         updateRect();
     }else{
-        pos = 740;
+        pos = 730;
         updateRect();
     }
     }
@@ -78,6 +81,18 @@ public class Cannon{
 
     public boolean gotHit(){
         return gotShot;
+    }
+
+    public boolean canShoot(){
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastShotTime > shotCooldown){
+            lastShotTime = currentTime;
+            return true;
+        }
+        return false;
+    }
+    public void setShotCooldown(long newCooldown){
+        shotCooldown = newCooldown; // sets cooldown for user shots (milliseconds)
     }
 
     public void collide(ArrayList<Bullet> getBullets){ // used to see if user collides with any bullets
@@ -132,4 +147,10 @@ public class Cannon{
         }
     }
 
+    public void toggleSideCannons(){
+        sideCannons = !sideCannons;
+    }
+    public boolean hasSideCannons(){
+        return sideCannons;
+    }
 }
