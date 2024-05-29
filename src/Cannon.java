@@ -20,9 +20,9 @@ public class Cannon{
     private boolean gotShot = false; // flag to determine if user has been hit
     private int counter = 0; // used to moderate when to display image
     private Clip hitMusic;
-    private long shotCooldown = 200; // cooldown for player shots
+    private long shotCooldown = 50; // cooldown for player shots
     private long lastShotTime = 0; // stores last time user shot
-    private boolean sideCannons = false; // flag to determine if user has side cannons active
+    private boolean sideCannons = true; // flag to determine if user has side cannons active
 
     public Cannon(){
     }
