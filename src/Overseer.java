@@ -7,7 +7,6 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
-
 ///// JPANEL CLASS (DRAWS GRAPHICS, LISTENS FOR KEY INPUT, CALLS FOR MOVES)
 public class Overseer extends JPanel implements KeyListener {
 
@@ -24,7 +23,7 @@ public class Overseer extends JPanel implements KeyListener {
     private boolean paused = false; // flag for when user pauses/unpauses game
     private boolean restartGame = false; // flag for when user wants to restart the game
 
-    private Color pOverlay = new Color(253, 0, 0, 200);
+    private Color pOverlay = new Color(0, 0, 0, 200);
     private File ttf = new File("fonts/visitor.ttf"); // font used to draw score, etc.
     private Font fontL = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,150); // various font sizes
     private Font fontM = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,100);
@@ -49,20 +48,15 @@ public class Overseer extends JPanel implements KeyListener {
     }
 
     public void move(){ // takes in keyboard input and moves user cannon
-        if (keys[KeyEvent.VK_RIGHT]) {
+        if (keys[KeyEvent.VK_RIGHT] && (ship.getPos() + 5) <= 740) {
             ship.right();
         }
-        if (keys[KeyEvent.VK_LEFT]) {
+        if (keys[KeyEvent.VK_LEFT] && (ship.getPos() - 5) >= 12) {
             ship.left();
         }
-        if (keys[KeyEvent.VK_SPACE] && shotsFired.playerCanShoot() && ship.canShoot()) {
+        if (keys[KeyEvent.VK_SPACE] && shotsFired.playerCanShoot()) {
             // canShoot flag prevents user from shooting infinite bullets one after another
-            shotsFired.addPlayerShot(new Bullet(ship.getPos(), 556, Bullet.UP));
-            if (ship.hasSideCannons()){
-                shotsFired.addPlayerShot(new Bullet(ship.getPos()-17, 566, Bullet.UP));
-                shotsFired.addPlayerShot(new Bullet(ship.getPos()+17, 566, Bullet.UP));
-            }
-
+            shotsFired.setPlayerShot(new Bullet(ship.getPos(), 556, Bullet.UP));
 
             // play music
             try {
@@ -144,9 +138,6 @@ public class Overseer extends JPanel implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_P && !playing){
             restartGame = true;
         }
-    }
-    public Cannon getShip(){
-        return ship;
     }
 
     public void paintComponent(Graphics g){ // paints all elements of screen
