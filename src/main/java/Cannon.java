@@ -16,10 +16,13 @@ public class Cannon{
     private Image shipDown0 = new ImageIcon("sprites/c_broken1.png").getImage(); // broken ships
     private Image shipDown1 = new ImageIcon("sprites/c_broken2.png").getImage();
     private int curImage = 0; // determines which broken image will be displayed
-
+    private int speed = 5; // speed of ship
     private boolean gotShot = false; // flag to determine if user has been hit
     private int counter = 0; // used to moderate when to display image
     private Clip hitMusic;
+    private long shotCooldown = 50; // cooldown for player shots
+    private long lastShotTime = 0; // stores last time user shot
+    private boolean sideCannons = true; // flag to determine if user has side cannons active
 
     public Cannon(){
     }
@@ -30,12 +33,35 @@ public class Cannon{
 
     // these two functions move user left or right by 5 units
     public void right(){
-        pos += 5;
+        if(pos+speed <= 730){
+        pos += speed;
         updateRect();
+    }else{
+        pos = 730;
+        updateRect();
+    }
     }
 
     public void left(){
-        pos -= 5;
+        if(pos-speed >= 12){
+        pos -= speed;
+        updateRect();
+    }else {
+        pos = 12;
+        updateRect();
+    }
+    }
+    public int getX(){
+        return pos;
+    }
+    public int getSpeed(){
+        return speed;
+    }
+    public void setSpeed(int newSpeed){
+        speed = newSpeed;
+    }
+    public void setPos(int newX){
+        pos = newX;
         updateRect();
     }
 
@@ -55,6 +81,18 @@ public class Cannon{
 
     public boolean gotHit(){
         return gotShot;
+    }
+
+    public boolean canShoot(){
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastShotTime > shotCooldown){
+            lastShotTime = currentTime;
+            return true;
+        }
+        return false;
+    }
+    public void setShotCooldown(long newCooldown){
+        shotCooldown = newCooldown; // sets cooldown for user shots (milliseconds)
     }
 
     public void collide(ArrayList<Bullet> getBullets){ // used to see if user collides with any bullets
@@ -109,4 +147,10 @@ public class Cannon{
         }
     }
 
+    public void toggleSideCannons(){
+        sideCannons = !sideCannons;
+    }
+    public boolean hasSideCannons(){
+        return sideCannons;
+    }
 }
