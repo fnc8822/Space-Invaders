@@ -105,10 +105,6 @@ public class AlienMan {
         return alienHit;
     }
 
-    public Enemy[][] getAliens() {
-        return aliens;
-    }
-
     public boolean reachedBottom(){ // returns flag determining if user lost
         return loseGame;
     }
