@@ -84,6 +84,13 @@ public class BulletMan {
         }
 
     }
+    public ArrayList<Bullet> getPlayerShots(){
+        return playerShots;
+    }
+
+    public ArrayList<Bullet> getEnemyShots() {
+        return enemyShots;
+    }
 
     public void draw(Graphics g){ // draw bullets
         for(Bullet shot:playerShots){

@@ -14,6 +14,8 @@ public class Scorekeeper{
     private File hiScoreTxt;
     private BufferedWriter outFile;
 
+
+
     public Scorekeeper() throws IOException, FontFormatException {
         hiScoreTxt = new File("src/hiscore.txt"); // get hi score
         inFile = new BufferedReader(new FileReader(hiScoreTxt));
