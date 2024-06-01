@@ -1,10 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 class AlienManTest {
     private AlienMan alienMan;
