@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 ///// JPANEL CLASS (DRAWS GRAPHICS, LISTENS FOR KEY INPUT, CALLS FOR MOVES)
@@ -57,11 +58,11 @@ public class Overseer extends JPanel implements KeyListener {
         }
         if (keys[KeyEvent.VK_SPACE] && shotsFired.playerCanShoot() && ship.canShoot()) {
             // canShoot flag prevents user from shooting infinite bullets one after another
-            shotsFired.addPlayerShot(new Bullet(ship.getPos(), 556, Bullet.UP));
-            if (ship.hasSideCannons()){
-                shotsFired.addPlayerShot(new Bullet(ship.getPos()-17, 566, Bullet.UP));
-                shotsFired.addPlayerShot(new Bullet(ship.getPos()+17, 566, Bullet.UP));
+            ArrayList<Bullet> bullets = ship.getShootingBehavior().shoot();
+            for (Bullet bullet : bullets) {
+                shotsFired.addPlayerShot(bullet);
             }
+
 
 
             // play music

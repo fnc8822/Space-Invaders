@@ -1,4 +1,5 @@
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -6,10 +7,15 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CannonTest {
+    Cannon ship;
+    @BeforeEach
+    void setUp() {
+        ship = new Cannon();
+    }
 
     @Test
     void TestMoveRightFromRight() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(730);
         ship.right();
@@ -17,7 +23,7 @@ class CannonTest {
     }
     @Test
     void TestMoveRightFromRightWithEdge() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(725);
         ship.right();
@@ -26,7 +32,7 @@ class CannonTest {
 
     @Test
     void RestMoveRightFromMiddle() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(500);
         ship.right();
@@ -34,7 +40,7 @@ class CannonTest {
     }
     @Test
     void TestMoveRightFromLeft() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(12);
         ship.right();
@@ -42,7 +48,7 @@ class CannonTest {
     }
     @Test
     void TestMoveLeftFromLeft() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(12);
         ship.left();
@@ -50,7 +56,7 @@ class CannonTest {
     }
     @Test
     void TestMoveLeftFromLeftWithEdge() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(17);
         ship.left();
@@ -58,7 +64,7 @@ class CannonTest {
     }
     @Test
     void TestMoveLeftFromMiddle() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(500);
         ship.left();
@@ -66,7 +72,7 @@ class CannonTest {
     }
     @Test
     void TestMoveLeftFromRight() {
-        Cannon ship = new Cannon();
+
         ship.setSpeed(10);
         ship.setPos(730);
         ship.left();
