@@ -18,25 +18,27 @@ public class MoveThrough implements MovingBehavior{
     @Override
     public void left(){
         if (player.getX() - speed < 0) {
-            player.setPos(GAME_WIDTH);
+            player.setPos(GAME_WIDTH );
         } else {
             player.setPos(player.getX() - speed);
         }
     }
     @Override
     public void up(){
-        if (player.getY() + speed > 570) {
-            player.setPosY(570);
+
+        if (player.getY() - speed < 370) {
+            player.setPosY(370);
         } else {
             player.setPosY(player.getY() - speed);
         }
     }
     @Override
     public void down(){
-        if (player.getY() - speed < GAME_WIDTH) {
-            player.setPosY(GAME_WIDTH);
+
+        if (player.getY() + speed > 570) {
+            player.setPosY(570);
         } else {
-            player.setPosY(player.getX() + speed);
+            player.setPosY(player.getY() + speed);
         }
     }
     @Override

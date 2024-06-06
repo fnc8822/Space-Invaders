@@ -107,6 +107,7 @@ public class Cannon{
         }
         if (gotShot){ // if shot, lose 1 life and reset position
             lives -= 1;
+            posY=570;
             if (lives < 0) lives = 0; // prevents # of lives from becoming negative
 
             // play music

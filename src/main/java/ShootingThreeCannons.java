@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class ShootingThreeCannons implements ShootingBehavior{
     private Cannon player;
-    private long shotCooldown;
+    private long shotCooldown = 1000;
     private long lastShotTime;
     private boolean canshoot = true ;
     public ShootingThreeCannons(Cannon getplayer){

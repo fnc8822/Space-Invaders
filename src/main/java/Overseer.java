@@ -56,6 +56,12 @@ public class Overseer extends JPanel implements KeyListener {
         if (keys[KeyEvent.VK_LEFT]) {
             ship.left();
         }
+        if (keys[KeyEvent.VK_UP]) {
+            ship.up();
+        }
+        if (keys[KeyEvent.VK_DOWN]) {
+            ship.down();
+        }
         if (keys[KeyEvent.VK_SPACE] && shotsFired.playerCanShoot() && ship.canShoot()) {
             // canShoot flag prevents user from shooting infinite bullets one after another
             ArrayList<Bullet> bullets = ship.getShootingBehavior().shoot();

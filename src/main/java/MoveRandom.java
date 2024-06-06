@@ -25,7 +25,7 @@ public class MoveRandom implements MovingBehavior{
         if (player.getX() - speed < 0) {
             player.setPos(0);
         } else {
-            player.setPos(player.getX() - speed* (1+random.nextInt(0,16)));
+            player.setPos(player.getX() - speed* (1+random.nextInt(-4,16)));
         }
     }
     @Override
