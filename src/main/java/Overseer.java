@@ -1,6 +1,8 @@
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -19,13 +21,14 @@ public class Overseer extends JPanel implements KeyListener {
     private Shield shield;
     private BulletMan shotsFired;
 
+
     private boolean[]keys; // holds keyboard input
 
     private boolean playing = true; // flag to see if game is still ongoing
     private boolean paused = false; // flag for when user pauses/unpauses game
     private boolean restartGame = false; // flag for when user wants to restart the game
 
-    private Color pOverlay = new Color(253, 0, 0, 200);
+    private Color pOverlay = new Color(197, 31, 31, 48);
     private File ttf = new File("fonts/visitor.ttf"); // font used to draw score, etc.
     private Font fontL = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,150); // various font sizes
     private Font fontM = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,100);
@@ -42,7 +45,11 @@ public class Overseer extends JPanel implements KeyListener {
 
         setSize(770,652);
         addKeyListener(this);
+
     }
+
+
+
 
     public void addNotify(){
         super.addNotify();
@@ -101,6 +108,28 @@ public class Overseer extends JPanel implements KeyListener {
         g.setColor(Color.WHITE);
         comp2D.setFont(fontL);
         comp2D.drawString("PAUSED",120,320);
+        comp2D.setFont(fontS);
+        comp2D.drawString("Volume", 310, 400);
+        int volume = SoundMan.getVolume();
+        for (int i = 0; i < 10; i++) {
+            if (volume >= (i + 1) * 10) {
+                g.setColor(Color.GREEN);
+            } else {
+                g.setColor(Color.WHITE);
+            }
+            g.fillRect(280 + i * 20, 420, 10, 20); // Adjust the position and size as needed
+        }
+
+    }
+
+    public void volumeHandler(){
+        int volume = SoundMan.getVolume();
+        if (keys[KeyEvent.VK_UP] && volume < 100) {
+            SoundMan.setVolume(volume + 1);
+        }
+        if (keys[KeyEvent.VK_DOWN] && volume > 0) {
+            SoundMan.setVolume(volume - 1);
+        }
     }
 
     // draws text for game over screen
@@ -111,6 +140,7 @@ public class Overseer extends JPanel implements KeyListener {
         comp2D.drawString("GAME OVER",120,320);
         comp2D.setFont(fontS);
         comp2D.drawString("PRESS P TO PLAY AGAIN",130,400);
+
     }
 
     // called to see if game is still in play
@@ -145,6 +175,7 @@ public class Overseer extends JPanel implements KeyListener {
         // pause game
         if (e.getKeyCode() == KeyEvent.VK_P && playing){
             paused = !paused;
+
         }
 
         // restart game when player has lost

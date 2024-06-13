@@ -116,6 +116,9 @@ public class SpaceInvaders extends JFrame implements ActionListener{
                     enemies.ufoTrack(); // move mystery UFO regardless of beat
                     shotsFired.trackBullets(); // move shots if they exist
                 }
+                if (overseer.stillPlaying() && overseer.isPaused()) { // only move when not paused and player still alive
+                    overseer.volumeHandler();
+                }
 
                 if (!overseer.stillPlaying()) {
                     enemies.ufoDestroy();
