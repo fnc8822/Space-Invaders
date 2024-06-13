@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.Random;
 ///// CANNON CLASS (CONTROLS AND DRAWS USER'S CANNON)
 public class Cannon{
     private int pos = 366; // position on screen
@@ -21,12 +21,13 @@ public class Cannon{
     private boolean gotShot = false; // flag to determine if user has been hit
     private int counter = 0; // used to moderate when to display image
     private Clip hitMusic;
-    private long shotCooldown = 50; // cooldown for player shots
-    private long lastShotTime = 0; // stores last time user shot
-    private boolean sideCannons = true; // flag to determine if user has side cannons active
     private MovingBehavior movingBehavior;
     private ShootingBehavior shootingBehavior;
-
+    private int shootingPowerUpTimer;
+    private int movementPowerUpTimer;
+    private boolean hasMovementPowerUp;
+    private boolean hasShootingPowerUp;
+    private long lastShotTime;
     public Cannon(){
 
     }
@@ -91,9 +92,7 @@ public class Cannon{
     public boolean canShoot(){
         return shootingBehavior.canShoot();
     }
-    public void setShotCooldown(long newCooldown){
-        shotCooldown = newCooldown; // sets cooldown for user shots (milliseconds)
-    }
+
 
     public void collide(ArrayList<Bullet> getBullets){ // used to see if user collides with any bullets
         for (int i=0;i<getBullets.size();i++){
@@ -153,6 +152,58 @@ public class Cannon{
         updateRect();
     }
 
+    public int getShootingPowerUpTimer(){
+        return shootingPowerUpTimer;
+    }
+    public int getMovementPowerUpTimer(){
+        return movementPowerUpTimer;
+    }
+    public void giveRandomMovementPowerUp(){
+        Random random = new Random();
+        int chance = random.nextInt(100);
+        if (chance<70){ // 70% chance to get a random powerup
+            movingBehavior=new MoveThrough(this);
+        }
+        else{
+            movingBehavior=new MoveRandom(this);
+        }
+
+
+        movementPowerUpTimer=400;
+        hasMovementPowerUp=true;
+    }
+    public void giveRandomShootingPowerUp(){
+        shootingBehavior=new ShootingThreeCannons(this);
+        shootingPowerUpTimer=300;
+        hasShootingPowerUp=true;
+    }
+    public boolean hasMovementPowerUp(){
+        return hasMovementPowerUp;
+    }
+
+    public void updatePowerUpTimers(){
+        if(shootingPowerUpTimer>0){
+            shootingPowerUpTimer--;
+        }
+        else{
+            hasShootingPowerUp=false;
+            shootingPowerUpTimer=0;
+            this.shootingBehavior=new ShootingNormal(this);
+        }
+
+        if(movementPowerUpTimer>0){
+            movementPowerUpTimer--;
+        }
+        else{
+            hasMovementPowerUp=false;
+            movementPowerUpTimer=0;
+            this.movingBehavior=new MoveNormal(this);
+        }
+    }
+    public boolean hasShootingPowerUp(){
+        return hasShootingPowerUp;
+    }
+
     public ShootingBehavior getShootingBehavior() {
         return shootingBehavior;
     }
@@ -160,13 +211,13 @@ public class Cannon{
         return movingBehavior;
     }
 
-    public void toggleSideCannons(){
-        sideCannons = !sideCannons;
-    }
-    public boolean hasSideCannons(){
-        return sideCannons;
-    }
     public void changeImage(Image newimageShip){
         imgShip = newimageShip;
+    }
+    public long getLastShotTime(){
+        return lastShotTime;
+    }
+    public void setLastShotTime(long newTime){
+        lastShotTime = newTime;
     }
 }

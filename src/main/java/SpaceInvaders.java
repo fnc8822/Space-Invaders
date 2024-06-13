@@ -93,8 +93,8 @@ public class SpaceInvaders extends JFrame implements ActionListener{
         wave = 0;
 
         player = new Cannon();
-        player.setMovingBehavior(new MoveThrough(player));
-        player.setShootingBehavior(new ShootingThreeCannons(player));
+        player.setMovingBehavior(new MoveNormal(player));
+        player.setShootingBehavior(new ShootingNormal(player));
         shield = new Shield();
         scoreMan.setShip(player);
         scoreMan.resetScore();

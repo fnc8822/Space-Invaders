@@ -33,6 +33,7 @@ public class Overseer extends JPanel implements KeyListener {
     private Font fontL = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,150); // various font sizes
     private Font fontM = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,100);
     private Font fontS = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,40);
+    private Font fontXS = Font.createFont(Font.TRUETYPE_FONT,ttf).deriveFont(Font.PLAIN,20);
 
     public Overseer(Cannon player, AlienMan badGuys, Scorekeeper getScore, Shield getShield, BulletMan getShots) throws IOException, FontFormatException{
         super();
@@ -194,6 +195,28 @@ public class Overseer extends JPanel implements KeyListener {
             ship.draw(g);
             shotsFired.draw(g);
                enemies.draw(g);
+
+
+            if (ship.hasMovementPowerUp()){
+                Graphics2D comp2D = (Graphics2D)g;
+                g.setColor(Color.WHITE);
+                comp2D.setFont(fontXS);
+                comp2D.drawString("Move Timer", 600, 400);
+                String timerString = Integer.toString(ship.getMovementPowerUpTimer()/10);
+                comp2D.drawString(timerString, 600, 440);
+                ship.updatePowerUpTimers();
+
+            }
+
+            if (ship.hasShootingPowerUp()){
+                Graphics2D comp2D = (Graphics2D)g;
+                g.setColor(Color.WHITE);
+                comp2D.setFont(fontXS);
+                comp2D.drawString("Shoot Timer", 30, 400);
+                String timerString = Integer.toString(ship.getShootingPowerUpTimer()/10);
+                comp2D.drawString(timerString, 30, 440);
+                ship.updatePowerUpTimers();
+            }
         }
         else { // when game is over
             gameOverOverlay(g);

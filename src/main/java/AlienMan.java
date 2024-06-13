@@ -76,6 +76,10 @@ public class AlienMan {
                         Rectangle rectCheck = aliens[j][i].getRect();
                         alienHit = rectCheck.intersects(bullet);
                         if (alienHit){ // if hit, remove alien and add score, etc.
+                            if(aliens[j][i].givesPowerUp()){ // if alien has power up, generate it
+                                ship.giveRandomMovementPowerUp();
+                                ship.giveRandomShootingPowerUp();
+                            }
                             score.add(aliens[j][i].getScore());
                             aliens[j][i] = null;
                             beatModifier = Math.max(1, beatModifier - 1); // make aliens move faster

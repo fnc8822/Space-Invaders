@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class ShootingNormal implements ShootingBehavior{
     private Cannon player;
     private long shotCooldown = 1000;
-    private long lastShotTime;
     private boolean canshoot = true;
     Bullet[] shoot;
     public ShootingNormal(Cannon getPlayer){
@@ -23,8 +22,8 @@ public class ShootingNormal implements ShootingBehavior{
     @Override
     public boolean canShoot(){
         long currentTime = System.currentTimeMillis();
-        if (currentTime - lastShotTime > shotCooldown){
-            lastShotTime = currentTime;
+        if (currentTime - player.getLastShotTime() > shotCooldown){
+            player.setLastShotTime(currentTime);
             return true;
         }
         return false;
