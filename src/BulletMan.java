@@ -5,8 +5,8 @@ import java.util.ArrayList;
 // Also does collision detection
 public class BulletMan {
 
-    private ArrayList<Bullet> playerShots = new ArrayList<>(); // list of player bullets
-    private ArrayList<Bullet> enemyShots = new ArrayList<Bullet>(); // list of alien bullets
+    private Bullet playerShot = null;
+    private ArrayList<Bullet> enemyShots = new ArrayList<Bullet>();
 
     private Cannon player;
     private AlienMan enemies;
@@ -14,15 +14,15 @@ public class BulletMan {
 
     private boolean canShoot = true;
 
-
     public BulletMan(Cannon getPlayer, AlienMan getEnemies, Shield getShield){
         player = getPlayer;
         enemies = getEnemies;
         shield = getShield;
     }
 
-    public void addPlayerShot(Bullet getPlayerShot){
-        playerShots.add(getPlayerShot);
+    public void setPlayerShot(Bullet getPlayerShot){
+        playerShot = getPlayerShot;
+        canShoot = false;
     }
 
     public boolean playerCanShoot(){
@@ -36,19 +36,21 @@ public class BulletMan {
     public void trackBullets(){ // tracks bullets in the game
 
         // checks if player bullet has hit anything
-        for(int i=0; i<playerShots.size();i++){
-            Bullet playerShot = playerShots.get(i);
-            if (playerShot != null){
-                playerShot.move(); // move player bullet
+        if (playerShot != null){
 
+            playerShot.move(); // move player bullet
 
-//
-                if (shield.collide(playerShot.getRect())||playerShot.getY() <= 40 || enemies.collide(playerShot.getRect())){ // check if bullet hits enemy or goes out of bounds
-                    playerShots.set(i,null);
-                }
+            boolean shieldHit = false;
+            shieldHit = shield.collide(playerShot.getRect()); // check if bullet hits shield
+            if (shieldHit){
+                playerShot = null;
+                canShoot = true;
+            }
+            else if (playerShot.getY() <= 40 || enemies.collide(playerShot.getRect())){ // check if bullet hits enemy or goes out of bounds
+                playerShot = null;
+                canShoot = true;
             }
         }
-
 
         // move enemy shots
         for (int i=0;i<enemyShots.size();i++){
@@ -62,6 +64,7 @@ public class BulletMan {
             }
         }
 
+        player.collide(enemyShots); // check if player got hit
 
         // gets rid of bullets outside of screen
         // this implementation prevents a ConcurrentModificationException
@@ -75,26 +78,12 @@ public class BulletMan {
         while (enemyShots.contains(null)){
             enemyShots.remove(null);
         }
-        player.collide(enemyShots); // check if player got hit
-        while (playerShots.contains(null)){
-            playerShots.remove(null);
-        }
-        while(enemyShots.contains(null)){
-            enemyShots.remove(null);
-        }
 
-    }
-    public ArrayList<Bullet> getPlayerShots(){
-        return playerShots;
-    }
-
-    public ArrayList<Bullet> getEnemyShots() {
-        return enemyShots;
     }
 
     public void draw(Graphics g){ // draw bullets
-        for(Bullet shot:playerShots){
-            shot.draw(g);
+        if (playerShot != null){
+            playerShot.draw(g);
         }
 
         for (Bullet shot : enemyShots){
