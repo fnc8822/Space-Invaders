@@ -1,82 +1,58 @@
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import java.util.ArrayList;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class CannonTest {
-
-    @Test
-    void TestMoveRightFromRight() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(730);
-        ship.right();
-        assertEquals(ship.getX(), 730);
-    }
-    @Test
-    void TestMoveRightFromRightWithEdge() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(725);
-        ship.right();
-        assertEquals(ship.getX(), 730);
+    private Cannon ship;
+    @Mock
+    private MovingBehavior movingBehavior;
+    private ShootingBehavior shootingBehavior;
+    private Bullet bullet;
+    @BeforeEach
+    void setUp() {
+        movingBehavior = Mockito.mock(MoveNormal.class);
+        shootingBehavior = Mockito.mock(ShootingNormal.class);
+        ship = new Cannon();
+        ship.setMovingBehavior(movingBehavior);
+        ship.setShootingBehavior(shootingBehavior);
+        bullet = Mockito.mock(Bullet.class);
     }
 
     @Test
-    void RestMoveRightFromMiddle() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(500);
+    void TestMoveRight() {
         ship.right();
-        assertEquals(ship.getX(), 510);
+        verify(movingBehavior, times(1)).right();
+        verify(movingBehavior, times(0)).left();
     }
     @Test
-    void TestMoveRightFromLeft() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(12);
-        ship.right();
-        assertEquals(ship.getX(), 22);
-    }
-    @Test
-    void TestMoveLeftFromLeft() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(12);
+    void TestMoveLeft() {
         ship.left();
-        assertEquals(ship.getX(), 12);
-    }
-    @Test
-    void TestMoveLeftFromLeftWithEdge() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(17);
-        ship.left();
-        assertEquals(ship.getX(), 12);
-    }
-    @Test
-    void TestMoveLeftFromMiddle() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(500);
-        ship.left();
-        assertEquals(ship.getX(), 490);
-    }
-    @Test
-    void TestMoveLeftFromRight() {
-        Cannon ship = new Cannon();
-        ship.setSpeed(10);
-        ship.setPos(730);
-        ship.left();
-        assertEquals(ship.getX(), 720);
-    }
-    @Test
-    void getLives() {
+        verify(movingBehavior, times(1)).left();
+        verify(movingBehavior, times(0)).right();
     }
 
     @Test
     void addLife() {
+        int currentlives = ship.getLives();
+        ship.addLife();
+        assertEquals(ship.getLives(), currentlives+1);
+    }
+    @Test
+    void testGotHit() {
+        int expectedLives= ship.getLives()-1;
+        Rectangle bulletRect = new Rectangle(ship.getX(),ship.getY(),10,10);
+        Bullet bullet = Mockito.mock(Bullet.class);
+        when(bullet.getRect()).thenReturn(bulletRect);
+        ArrayList<Bullet> bullets = new ArrayList<>();
+        bullets.add(bullet);
+        ship.collide(bullets);
+        assertEquals(ship.getLives(), expectedLives);
     }
 }

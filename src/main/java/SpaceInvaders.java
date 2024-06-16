@@ -91,7 +91,10 @@ public class SpaceInvaders extends JFrame implements ActionListener{
         }
 
         wave = 0;
+
         player = new Cannon();
+        player.setMovingBehavior(new MoveNormal(player));
+        player.setShootingBehavior(new ShootingNormal(player));
         shield = new Shield();
         scoreMan.setShip(player);
         scoreMan.resetScore();
@@ -112,6 +115,9 @@ public class SpaceInvaders extends JFrame implements ActionListener{
                     }
                     enemies.ufoTrack(); // move mystery UFO regardless of beat
                     shotsFired.trackBullets(); // move shots if they exist
+                }
+                if (overseer.stillPlaying() && overseer.isPaused()) { // only move when not paused and player still alive
+                    overseer.volumeHandler();
                 }
 
                 if (!overseer.stillPlaying()) {
