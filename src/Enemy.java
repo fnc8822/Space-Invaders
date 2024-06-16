@@ -10,25 +10,47 @@ public class Enemy{
     private Image imgOne; // image used for 1st beat
     private Image imgTwo; // image used for 2nd beat
     private Image toReturn; // determines which image to display
+    private boolean givesPowerUp;
 
     public Enemy(int type,int posX,int posY){
+        givesPowerUp = new Random().nextInt(10) == 0;
         if(type == 1){ // top level
-            imgOne = new ImageIcon("sprites/a1.png").getImage();
-            imgTwo = new ImageIcon("sprites/a2.png").getImage();
+            if(givesPowerUp){
+                imgOne = new ImageIcon("sprites/a1p.png").getImage();
+                imgTwo = new ImageIcon("sprites/a2p.png").getImage();
+            }else {
+                imgOne = new ImageIcon("sprites/a1.png").getImage();
+                imgTwo = new ImageIcon("sprites/a2.png").getImage();
+            }
             xSize = 24;
             points = 30;
+
         }
         if(type == 2){ // 2nd and 3rd level
-            imgOne = new ImageIcon("sprites/b1.png").getImage();
-            imgTwo = new ImageIcon("sprites/b2.png").getImage();
+            if(givesPowerUp){
+                imgOne = new ImageIcon("sprites/b1p.png").getImage();
+                imgTwo = new ImageIcon("sprites/b2p.png").getImage();
+            }
+            else{
+                imgOne = new ImageIcon("sprites/b1.png").getImage();
+                imgTwo = new ImageIcon("sprites/b2.png").getImage();
+            }
             xSize = 33;
             points = 20;
+
         }
         if(type == 3){ // 4th and 5th level
-            imgOne = new ImageIcon("sprites/c1.png").getImage();
-            imgTwo = new ImageIcon("sprites/c2.png").getImage();
+            if(givesPowerUp){
+                imgOne = new ImageIcon("sprites/c1p.png").getImage();
+                imgTwo = new ImageIcon("sprites/c2p.png").getImage();
+            }
+            else{
+                imgOne = new ImageIcon("sprites/c1.png").getImage();
+                imgTwo = new ImageIcon("sprites/c2.png").getImage();
+            }
             xSize = 37;
             points = 10;
+
         }
         if(type == 4){ // red UFO
             Random coin = new Random(); // used to randomly determine alien point value
@@ -36,6 +58,7 @@ public class Enemy{
             imgOne = imgTwo = new ImageIcon("sprites/d.png").getImage();
             xSize = 51;
             points = posPoints[coin.nextInt(3)];
+            givesPowerUp=true;
         }
         x = posX;
         y = posY;
@@ -94,5 +117,8 @@ public class Enemy{
             toReturn = imgTwo;
         }
         return toReturn;
+    }
+    public boolean givesPowerUp(){
+        return givesPowerUp;
     }
 }

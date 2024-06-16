@@ -8,6 +8,7 @@ import javax.sound.sampled.*;
 public class SoundMan {
     private SoundMan() {}
     private static String[] numList = {"1","2","3","4"};
+    private static int volume = 70;
 
     // gets a preset name from somewhere in the program then passes the proper WAV file path to musicPlayer()
     public static Clip play(String name) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -37,6 +38,10 @@ public class SoundMan {
         Clip clip = AudioSystem.getClip();
         try {
             clip.open(audioInputStream);
+            FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            float range = volumeControl.getMaximum()- volumeControl.getMinimum();
+            float gain = (range * volume) / 100 + volumeControl.getMinimum();
+            volumeControl.setValue(gain);
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -44,5 +49,11 @@ public class SoundMan {
         }
         clip.start();
         return clip;
+    }
+    public static void setVolume (int newVolume) {
+        volume = newVolume;
+    }
+    public static int getVolume () {
+        return volume;
     }
 }
