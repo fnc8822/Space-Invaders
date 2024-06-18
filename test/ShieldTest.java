@@ -11,27 +11,28 @@ class ShieldTest {
     void setUp() {
         shield = new Shield();
     }
+
     @Test
     void collideFirstSector() {
-        bulletRect = new Rectangle(120, 460, 2,14);
+        bulletRect = new Rectangle(120, 460, 2, 14);
         assertTrue(shield.collide(bulletRect));
     }
 
     @Test
     void collideSecondSector() {
-        bulletRect = new Rectangle(260, 460, 2,14);
+        bulletRect = new Rectangle(260, 460, 2, 14);
         assertTrue(shield.collide(bulletRect));
     }
 
     @Test
     void collideThirdSector() {
-        bulletRect = new Rectangle(430, 460, 2,14);
+        bulletRect = new Rectangle(430, 460, 2, 14);
         assertTrue(shield.collide(bulletRect));
     }
 
     @Test
     void collideFourthSector() {
-        bulletRect = new Rectangle(580, 460,2,14);
+        bulletRect = new Rectangle(580, 460, 2, 14);
         assertTrue(shield.collide(bulletRect));
     }
 }

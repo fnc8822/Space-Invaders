@@ -16,6 +16,7 @@ class OverseerTest {
     Shield shield;
     BulletMan shotsFired;
     Component component;
+
     @BeforeEach
     public void setUp() {
         try {
@@ -34,14 +35,16 @@ class OverseerTest {
     @Test
     void moveRightWhenRightArrowKeyPressed() {
         // Assuming component, when, modifiers are defined elsewhere in the code
-        overseer.keyPressed(new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED));
+        overseer.keyPressed(
+                new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_RIGHT, KeyEvent.CHAR_UNDEFINED));
         overseer.move();
         Mockito.verify(ship).right();
     }
 
     @Test
     void moveLeftWhenLeftArrowKeyPressed() {
-        overseer.keyPressed(new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_LEFT, KeyEvent.CHAR_UNDEFINED));
+        overseer.keyPressed(
+                new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_LEFT, KeyEvent.CHAR_UNDEFINED));
         overseer.move();
         Mockito.verify(ship).left();
     }
@@ -74,8 +77,10 @@ class OverseerTest {
 
     @Test
     void gameIsPausedWhenPKeyPressed() {
-        overseer.keyPressed(new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_P, KeyEvent.CHAR_UNDEFINED));
-        overseer.keyReleased(new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_P, KeyEvent.CHAR_UNDEFINED));
+        overseer.keyPressed(
+                new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_P, KeyEvent.CHAR_UNDEFINED));
+        overseer.keyReleased(
+                new KeyEvent(component, KeyEvent.KEY_PRESSED, 100, 100, KeyEvent.VK_P, KeyEvent.CHAR_UNDEFINED));
         assertTrue(overseer.isPaused());
     }
 

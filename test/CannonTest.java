@@ -15,6 +15,7 @@ class CannonTest {
     private MovingBehavior movingBehavior;
     private ShootingBehavior shootingBehavior;
     private Bullet bullet;
+
     @BeforeEach
     void setUp() {
         movingBehavior = Mockito.mock(MoveNormal.class);
@@ -31,6 +32,7 @@ class CannonTest {
         verify(movingBehavior, times(1)).right();
         verify(movingBehavior, times(0)).left();
     }
+
     @Test
     void TestMoveLeft() {
         ship.left();
@@ -42,12 +44,13 @@ class CannonTest {
     void addLife() {
         int currentlives = ship.getLives();
         ship.addLife();
-        assertEquals(ship.getLives(), currentlives+1);
+        assertEquals(ship.getLives(), currentlives + 1);
     }
+
     @Test
     void testGotHit() {
-        int expectedLives= ship.getLives()-1;
-        Rectangle bulletRect = new Rectangle(ship.getX(),ship.getY(),10,10);
+        int expectedLives = ship.getLives() - 1;
+        Rectangle bulletRect = new Rectangle(ship.getX(), ship.getY(), 10, 10);
         Bullet bullet = Mockito.mock(Bullet.class);
         when(bullet.getRect()).thenReturn(bulletRect);
         ArrayList<Bullet> bullets = new ArrayList<>();
