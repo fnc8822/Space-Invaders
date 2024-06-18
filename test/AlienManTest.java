@@ -20,7 +20,7 @@ class AlienManTest {
 
     @Test
     void aliensMovementHorizontal() {
-        int initialPosition=alienMan.getAliens()[0][0].getX();
+        int initialPosition = alienMan.getAliens()[0][0].getX();
         alienMan.move();
         int newPosition = alienMan.getAliens()[0][0].getX();
         assertNotEquals(initialPosition, newPosition);
@@ -28,7 +28,7 @@ class AlienManTest {
 
     @Test
     void aliensMovementVertical() {
-        int initialPosition=alienMan.getAliens()[0][0].getY();
+        int initialPosition = alienMan.getAliens()[0][0].getY();
         alienMan.move();
         int newPosition = alienMan.getAliens()[0][0].getY();
         assertEquals(initialPosition, newPosition);
@@ -36,7 +36,7 @@ class AlienManTest {
 
     @Test
     void aliensMovementVerticalAfterBounce() {
-        int initialPosition=alienMan.getAliens()[0][0].getY();
+        int initialPosition = alienMan.getAliens()[0][0].getY();
         for (int i = 0; i < 10; i++) {
             alienMan.move();
         }
@@ -44,12 +44,12 @@ class AlienManTest {
         assertNotEquals(initialPosition, newPosition);
     }
 
-
     @Test
     void aliensGoneWhenAllCollide() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 11; j++) {
-                Rectangle bullet = new Rectangle(alienMan.getAliens()[i][j].getX(), alienMan.getAliens()[i][j].getY(), 10, 10);
+                Rectangle bullet = new Rectangle(alienMan.getAliens()[i][j].getX(), alienMan.getAliens()[i][j].getY(),
+                        10, 10);
                 alienMan.collide(bullet);
             }
         }

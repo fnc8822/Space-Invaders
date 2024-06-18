@@ -3,8 +3,8 @@ import java.awt.*;
 import java.util.Random;
 
 ///// ENEMY CLASS (KEEPS TRACK OF EACH INDIVIDUAL ALIEN)
-public class Enemy{
-    private int x,y,xSize; // enemy position on screen, width of enemy sprite
+public class Enemy {
+    private int x, y, xSize; // enemy position on screen, width of enemy sprite
     private long points; // score value of alien when destroyed
     private Rectangle enemyRect; // collision rectangle for alien
     private Image imgOne; // image used for 1st beat
@@ -12,13 +12,13 @@ public class Enemy{
     private Image toReturn; // determines which image to display
     private boolean givesPowerUp;
 
-    public Enemy(int type,int posX,int posY){
+    public Enemy(int type, int posX, int posY) {
         givesPowerUp = new Random().nextInt(10) == 0;
-        if(type == 1){ // top level
-            if(givesPowerUp){
+        if (type == 1) { // top level
+            if (givesPowerUp) {
                 imgOne = new ImageIcon("sprites/a1p.png").getImage();
                 imgTwo = new ImageIcon("sprites/a2p.png").getImage();
-            }else {
+            } else {
                 imgOne = new ImageIcon("sprites/a1.png").getImage();
                 imgTwo = new ImageIcon("sprites/a2.png").getImage();
             }
@@ -26,12 +26,11 @@ public class Enemy{
             points = 30;
 
         }
-        if(type == 2){ // 2nd and 3rd level
-            if(givesPowerUp){
+        if (type == 2) { // 2nd and 3rd level
+            if (givesPowerUp) {
                 imgOne = new ImageIcon("sprites/b1p.png").getImage();
                 imgTwo = new ImageIcon("sprites/b2p.png").getImage();
-            }
-            else{
+            } else {
                 imgOne = new ImageIcon("sprites/b1.png").getImage();
                 imgTwo = new ImageIcon("sprites/b2.png").getImage();
             }
@@ -39,12 +38,11 @@ public class Enemy{
             points = 20;
 
         }
-        if(type == 3){ // 4th and 5th level
-            if(givesPowerUp){
+        if (type == 3) { // 4th and 5th level
+            if (givesPowerUp) {
                 imgOne = new ImageIcon("sprites/c1p.png").getImage();
                 imgTwo = new ImageIcon("sprites/c2p.png").getImage();
-            }
-            else{
+            } else {
                 imgOne = new ImageIcon("sprites/c1.png").getImage();
                 imgTwo = new ImageIcon("sprites/c2.png").getImage();
             }
@@ -52,73 +50,73 @@ public class Enemy{
             points = 10;
 
         }
-        if(type == 4){ // red UFO
+        if (type == 4) { // red UFO
             Random coin = new Random(); // used to randomly determine alien point value
-            int posPoints[] = {50,100,150};
+            int posPoints[] = { 50, 100, 150 };
             imgOne = imgTwo = new ImageIcon("sprites/d.png").getImage();
             xSize = 51;
             points = posPoints[coin.nextInt(3)];
-            givesPowerUp=true;
+            givesPowerUp = true;
         }
         x = posX;
         y = posY;
-        enemyRect = new Rectangle(x,y,xSize,24);
+        enemyRect = new Rectangle(x, y, xSize, 24);
     }
 
-    public void updateRect(){
-        enemyRect = new Rectangle(x,y,xSize,24);
+    public void updateRect() {
+        enemyRect = new Rectangle(x, y, xSize, 24);
     }
 
-    public void left(){ // move alien to left
+    public void left() { // move alien to left
         x -= 18;
         updateRect();
     }
 
-    public void smoothLeft(){ // used for the special UFO (moves slower so it looks smoother)
+    public void smoothLeft() { // used for the special UFO (moves slower so it looks smoother)
         x -= 6;
         updateRect();
     }
 
-    public void right(){ // move alien to right
+    public void right() { // move alien to right
         x += 18;
         updateRect();
     }
 
-    public void down(){ // moves down alien
+    public void down() { // moves down alien
         y += 24;
         updateRect();
     }
 
-    public int getSizeX(){
+    public int getSizeX() {
         return xSize;
     }
 
-    public int getX(){
+    public int getX() {
         return x;
     } // return alien position
 
-    public int getY(){
+    public int getY() {
         return y;
     }
 
-    public Rectangle getRect(){
+    public Rectangle getRect() {
         return enemyRect;
     }
 
-    public long getScore(){
+    public long getScore() {
         return points;
     }
 
-    public Image getImage(int beat){ // method determines which image to display depending on beat value
-        if (beat==0){
+    public Image getImage(int beat) { // method determines which image to display depending on beat value
+        if (beat == 0) {
             toReturn = imgOne;
-        }
-        else if (beat==1){
+        } else if (beat == 1) {
             toReturn = imgTwo;
         }
         return toReturn;
     }
-    public boolean givesPowerUp(){
+
+    public boolean givesPowerUp() {
         return givesPowerUp;
     }
 }

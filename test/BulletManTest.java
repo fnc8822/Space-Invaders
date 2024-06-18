@@ -12,11 +12,12 @@ class BulletManTest {
     Shield shield;
     AlienMan alienMan;
     Cannon player;
+
     @BeforeEach
     void setUp() {
-        shield=Mockito.mock(Shield.class);
-        alienMan=Mockito.mock(AlienMan.class);
-        player=Mockito.mock(Cannon.class);
+        shield = Mockito.mock(Shield.class);
+        alienMan = Mockito.mock(AlienMan.class);
+        player = Mockito.mock(Cannon.class);
         bulletMan = new BulletMan(player, alienMan, shield);
         bullet = Mockito.mock(Bullet.class);
     }
