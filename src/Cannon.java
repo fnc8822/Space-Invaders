@@ -18,7 +18,7 @@ public class Cannon {
     private Image shipDown0 = new ImageIcon("sprites/c_broken1.png").getImage(); // broken ships
     private Image shipDown1 = new ImageIcon("sprites/c_broken2.png").getImage();
     private int curImage = 0; // determines which broken image will be displayed
-
+    private int speed = 5; // speed of ship
     private boolean gotShot = false; // flag to determine if user has been hit
     private int counter = 0; // used to moderate when to display image
     private Clip hitMusic;
