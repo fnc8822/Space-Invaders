@@ -178,14 +178,16 @@ public class Cannon {
         } else {
             movingBehavior = new MoveRandom(this);
         }
-
-        movementPowerUpTimer = 400;
+        int powerUpTimer = random.nextInt(500) + 200;
+        movementPowerUpTimer = powerUpTimer;
         hasMovementPowerUp = true;
     }
 
     public void giveRandomShootingPowerUp() {
+        Random random = new Random();
+        int powerUpTimer = random.nextInt(500) + 200;
         shootingBehavior = new ShootingThreeCannons(this);
-        shootingPowerUpTimer = 300;
+        shootingPowerUpTimer = powerUpTimer;
         hasShootingPowerUp = true;
     }
 
