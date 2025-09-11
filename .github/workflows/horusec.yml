@@ -1,0 +1,25 @@
+name: Horusec Security Scan
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  horusec-scan:
+    name: Run Horusec Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Run Horusec with Docker
+      - name: Run Horusec Scan with Docker
+        run: |
+          docker run --rm -v $(pwd):/src horuszup/horusec-cli:v2.9.0-beta.3 \
+          horusec start -p /src --config-file-path="/src/horusec-config.json" --disable-docker --enable-owasp-dependency-check --return-error --ignore-severity="LOW,MEDIUM" --log-level=info
+        env:
+          HORUSEC_CLI_SEVERITY: "CRITICAL, HIGH" # Block pipeline on CRITICAL or HIGH vulnerabilities
