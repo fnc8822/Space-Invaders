@@ -26,7 +26,7 @@
     "horusecCliHorusecUrl": "http://0.0.0.0:8000",
     "horusecCliRepositoryName": "Space-Invaders",
     "horusecCliPrintOutputType": "text",
-    "horusecCliJSONOutputFilePath": "./horusec-results.json",
+    "horusecCliJSONOutputFilePath": "./horusec-results.txt",
     "horusecCliSeveritiesToIgnore": ["LOW", "MEDIUM"],
     "horusecCliFilesOrPathsToIgnore": [
       "./fonts/**",
