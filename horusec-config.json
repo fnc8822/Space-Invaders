@@ -1,0 +1,36 @@
+{
+    "horusecCliIgnoreSeverity": ["LOW", "MEDIUM"],
+    "horusecCliReturnErrorIfFoundVulnerability": true,
+    "horusecCliIgnoreFiles": [
+      "**/target/**",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/tmp/**"
+    ],
+    "horusecCliIgnoreRuleIDs": [
+      "HS-JAVA-107"
+    ],
+    "horusecCliEnableInformationSeverity": true,
+    "horusecCliEnableCommitAuthor": false,
+    "horusecCliEnableGitHistory": false,
+    "horusecCliEnableOwaspDependencyCheck": true,
+    "horusecCliEnableShellcheck": false,
+    "horusecCliLogLevel": "info",
+    "horusecCliContainerBindProjectPath": "",
+    "horusecCliCustomRulesPath": "",
+    "horusecCliFalsePositiveHashes": [],
+    "horusecCliRiskAcceptHashes": [],
+    "horusecCliHeaders": {},
+    "horusecCliCertificatePath": "",
+    "horusecCliAuthorizationToken": "00000000-0000-0000-0000-000000000000",
+    "horusecCliHorusecUrl": "http://0.0.0.0:8000",
+    "horusecCliRepositoryName": "Space-Invaders",
+    "horusecCliPrintOutputType": "text",
+    "horusecCliJSONOutputFilePath": "./horusec-results.json",
+    "horusecCliSeveritiesToIgnore": ["LOW", "MEDIUM"],
+    "horusecCliFilesOrPathsToIgnore": [
+      "./fonts/**",
+      "./sounds/**",
+      "./sprites/**"
+    ]
+  }
